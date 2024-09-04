@@ -1,15 +1,15 @@
-import 'package:clothingstore/SignUpScreen.dart';
+import 'package:clothingstore/loginScreen.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen
 ({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
   bool isChecked = false;
   @override
 
@@ -22,11 +22,9 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Welcome",style: TextStyle(color: Color(0xFF051054), fontSize: 50, fontWeight: FontWeight.w800),),
-              Text("Back",style: TextStyle(color: Color(0xFF051054), fontSize: 50, fontWeight: FontWeight.w800),),
-
-              Text("Hey! Good to see you again", style: TextStyle(color: Color(0xFF051054),fontWeight: FontWeight.w600),),
-              SizedBox(height: 50),
+              Text("Sign Up",style: TextStyle(color: Color(0xFF051054), fontSize: 50, fontWeight: FontWeight.w800),),
+              Text("Hello! Let's join with us", style: TextStyle(color: Color(0xFF051054),fontWeight: FontWeight.w600),),
+              SizedBox(height: 40),
           
               TextField(
                 decoration: InputDecoration(
@@ -39,7 +37,17 @@ class _LoginScreenState extends State<LoginScreen> {
           
               ),
               SizedBox(height: 10,),
-              
+              TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                prefixIcon: Icon(Icons.person_2_outlined),
+                hintText: "Full Name",
+                ),
+          
+              ),  SizedBox(height: 10,),
+        
               TextField(
                 obscureText: true,
                 decoration: InputDecoration(
@@ -50,9 +58,23 @@ class _LoginScreenState extends State<LoginScreen> {
                 suffixIcon: Icon(Icons.remove_red_eye_outlined),
                 hintText: "Password",
                 ),
-                  
-              ), SizedBox(height: 5,),
-               Row(
+          
+              ), SizedBox(height: 10,),
+        
+              TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                prefixIcon: Icon(Icons.key),
+                suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                hintText: "Confirm Password",
+                ),
+          
+              ),
+  SizedBox(height: 10,),
+              Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start
                 ,
@@ -62,13 +84,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       isChecked = value ?? false;
                     });
                   }),
-                  Text("Remember Me"),
-                  SizedBox(width: 35,),
-                  TextButton(onPressed: (){}, child: Text("Forgot Password?"),
+                  Text("Agree with"),
+                  TextButton(onPressed: (){}, child: Text("Terms & Conditions"),
                   ),
                 ],
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 10,),
               Center(
                 child: ElevatedButton(onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUpScreen() ),);
@@ -101,10 +122,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [ 
-                  Text("Don't have an account?"),
+                  Text("Already have an account?"),
                 TextButton(onPressed: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> SignUpScreen()));
-                }, child: Text("Sign Up") )]
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> LoginScreen()));
+                }, child: Text("Sign In") )]
                 )
 
             ],

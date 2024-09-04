@@ -1,3 +1,4 @@
+import 'package:clothingstore/SignUpScreen.dart';
 import 'package:clothingstore/loginScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,50 +15,52 @@ class Welcomescreen extends StatelessWidget {
           margin: EdgeInsets.only(top: 40, bottom: 20, left: 10, right: 10),
           child: Column(
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  
-                  ClipRRect(
+              SingleChildScrollView(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     
-                      borderRadius: BorderRadius.circular(50),
-                    
-                    child: Image.asset("assets/images/men2.jfif",
-                    width: 200,
-                    height: 365,
-                    fit: BoxFit.cover,),
-                    
-                  ),
-                      const SizedBox(width: 11),
-                  Column(
-                    children: [
+                    ClipRRect(
+                      
+                        borderRadius: BorderRadius.circular(50),
+                      
+                      child: Image.asset("assets/images/men2.jfif",
+                      width: 180,
+                      height: 365,
+                      fit: BoxFit.cover,),
+                      
+                    ),
+                        const SizedBox(width: 12),
+                    Column(
+                      children: [
+                                ClipRRect(
+                                
+                    borderRadius: BorderRadius.circular(75),
+                                
+                                child: Image.asset("assets/images/men2.jpg",
+                                width: 140,
+                                height: 180,
+                                fit: BoxFit.cover,),
+                                
+                              ),
+                              const SizedBox(height: 10),
                               ClipRRect(
-                              
-                  borderRadius: BorderRadius.circular(75),
-                              
-                              child: Image.asset("assets/images/men2.jpg",
-                              width: 180,
-                              height: 180,
-                              fit: BoxFit.cover,),
-                              
-                            ),
-                            const SizedBox(height: 10),
-                            ClipRRect(
-                              
-                  borderRadius: BorderRadius.circular(75),
-                              
-                              child: Image.asset("assets/images/women.jpg",
-                              width: 180,
-                              height: 180,
-                              fit: BoxFit.cover,),
-                              
-                            ),      
-                    ],
-                  )
-                  
-                ],
+                                
+                    borderRadius: BorderRadius.circular(75),
+                                
+                                child: Image.asset("assets/images/women.jpg",
+                                width: 140,
+                                height: 180,
+                                fit: BoxFit.cover,),
+                                
+                              ),      
+                      ],
+                    )
+                    
+                  ],
+                ),
               ),
-              SizedBox(height: 30,),
+              SizedBox(height: 50,),
 
               RichText(text: TextSpan(
                 style: TextStyle(
@@ -73,12 +76,12 @@ class Welcomescreen extends StatelessWidget {
               )),
               Center(child: Text("Makes You Look Your Best",style: TextStyle(fontWeight: FontWeight.w800, fontSize: 25),)),
 
-              SizedBox(height: 25,),
+              SizedBox(height: 30,),
 
               ElevatedButton(onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUpScreen() ),);
-              }, child: Text("Let's Get Started",style: TextStyle(color: Colors.white),), style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 70, vertical:10),
+              }, child: Text("Let's Get Started",style: TextStyle(color: Colors.white,fontSize: 15),), style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 70, vertical:15),
                 backgroundColor: Color(0xFF051054),
               ),),
 
@@ -86,9 +89,11 @@ class Welcomescreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Already have an account?"),
+                  Text("Already have an account?", style: TextStyle(fontWeight: FontWeight.bold),),
                   SizedBox(width: 5,),
-                  TextButton(onPressed: (){}, child: Text("Sign in"),
+                  TextButton(onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));                  }, 
+                    child: Text("Sign in"),
                   ),
                 ],
               )
