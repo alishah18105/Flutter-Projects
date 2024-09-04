@@ -12,7 +12,7 @@ class Welcomescreen extends StatelessWidget {
       //appBar: AppBar(backgroundColor: Colors.white,),
       body: SafeArea(
         child: Container(
-          margin: EdgeInsets.only(top: 40, bottom: 20, left: 10, right: 10),
+          margin: const EdgeInsets.only(top: 40, bottom: 20, left: 10, right: 10),
           child: Column(
             children: [
               SingleChildScrollView(
@@ -62,7 +62,7 @@ class Welcomescreen extends StatelessWidget {
               ),
               SizedBox(height: 50,),
 
-              RichText(text: TextSpan(
+              RichText(text: const TextSpan(
                 style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 25,

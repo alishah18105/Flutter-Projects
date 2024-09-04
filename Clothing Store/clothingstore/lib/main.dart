@@ -2,7 +2,7 @@ import 'package:clothingstore/splashScreen.dart';
 import 'package:flutter/material.dart';
 
 void main(){
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -12,11 +12,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        primaryColor: Color(0xFF051054),
+        primaryColor: const Color(0xFF051054),
 
       ),
       debugShowCheckedModeBanner: false,
-      home: Splashscreen(),
+      home: const Splashscreen(),
     );
   }
 }

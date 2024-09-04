@@ -1,3 +1,4 @@
+import 'package:clothingstore/HomePage.dart';
 import 'package:clothingstore/SignUpScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool isChecked = false;
+  bool _obscureText = true;
   @override
 
   Widget build(BuildContext context) {
@@ -41,13 +43,17 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 10,),
               
               TextField(
-                obscureText: true,
+                obscureText: _obscureText,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
                 prefixIcon: Icon(Icons.key),
-                suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                suffixIcon: IconButton(onPressed: (){
+                setState(() {
+                  _obscureText = !_obscureText;
+                });
+                }, icon: Icon(_obscureText ? Icons.visibility_off: Icons.visibility)),
                 hintText: "Password",
                 ),
                   
@@ -71,8 +77,8 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(height: 20,),
               Center(
                 child: ElevatedButton(onPressed: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUpScreen() ),);
-                }, child: Text("Sign Up",style: TextStyle(color: Colors.white,fontSize: 15),), style: ElevatedButton.styleFrom(
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> Homepage() ),);
+                }, child: Text("Sign In",style: TextStyle(color: Colors.white,fontSize: 15),), style: ElevatedButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 80, vertical:11),
                   backgroundColor: Color(0xFF051054),
                 ),),
