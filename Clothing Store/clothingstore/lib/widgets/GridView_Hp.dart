@@ -2,30 +2,33 @@ import 'package:flutter/material.dart';
 
 class GridViewHP extends StatelessWidget {
   final String? images;
-  const GridViewHP({super.key, required this.images});
+  final String? product_title;
+  final String? price;
+
+  const GridViewHP({super.key, required this.images, required  this.product_title, required  this.price});
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Image.asset(
-                          "assets/images/$images",
-                          fit: BoxFit.fill,
-                        ),
-                        width: double.infinity, // Make the image fit the grid cell
-                        height: 150, // Adjust height to fit within grid
-                      ),
-                     /* const Text(
-                        "NAVY LINEN WAISTCOAT",
-                        style: TextStyle(fontSize: 12),
-                      ),
-                      const Text(
-                        "PKR 10,245",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),*/
-                      ],);
+    return Container(
+      width: MediaQuery.of(context).size.width/2,
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: Colors.grey.withOpacity(0.1),
+      ),
+      child: Column(
+        children: [
+          
+          SizedBox(
+            height: 140,
+            width: 130,
+            child: Image.asset("assets/images/$images",fit: BoxFit.contain),
+          ),
+          SizedBox(height: 10,),
+          Text("$product_title", style: TextStyle(fontSize: 13),),
+          Text("PKR: $price", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 10),)
+        ],
+      ),
+    );
   }
 }

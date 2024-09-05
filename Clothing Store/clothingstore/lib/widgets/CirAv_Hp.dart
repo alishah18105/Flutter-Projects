@@ -12,7 +12,8 @@ final String? image ;
 
                   radius: 30,
                   
-                  backgroundColor: Color(0xFFDCE6F2),
+                  backgroundColor: Colors.grey.withOpacity(0.1),
+
                   child: SizedBox(
                     width: 25,
                     height: 25,
