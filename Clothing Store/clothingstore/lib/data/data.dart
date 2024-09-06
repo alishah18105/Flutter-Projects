@@ -9,10 +9,8 @@ List data = [
 {"image" : "m8.jpg", "pdDetail" : "Light Olive Kurta", "price" : "10,550",},
 {"image" : "m5.jpg", "pdDetail" : "Milky White Kurta", "price" : "9,250",},
 {"image" : "wm3.jpg", "pdDetail" : "Peach Dobby Kurti", "price" : "6,350",},
-
-
-
-
-
-
 ];
+
+List listTile_data = [];
+
+  int count = 1;

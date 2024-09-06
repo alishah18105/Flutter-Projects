@@ -1,3 +1,4 @@
+import 'package:clothingstore/MyCart.dart';
 import 'package:clothingstore/data/data.dart';
 import 'package:clothingstore/widgets/CirAv_Pd.dart';
 import 'package:clothingstore/widgets/eleBut_Pd.dart';
@@ -90,7 +91,14 @@ class Productdetails extends StatelessWidget {
               
               ),
             ),
-            ElevatedButton(onPressed: (){}, 
+            ElevatedButton(onPressed: (){
+              listTile_data.add({
+                  "image": data[index]["image"],
+                  "pdDetail": data[index]["pdDetail"],
+                  "price": data[index]["price"],
+                });
+              Navigator.push(context, MaterialPageRoute(builder: (ctx)=> MyCart(index: index)));
+            }, 
             
             child: Row(
             children: [

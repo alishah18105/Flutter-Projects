@@ -1,7 +1,9 @@
+import 'package:clothingstore/data/data.dart';
 import 'package:flutter/material.dart';
 
 class EleButtHp extends StatefulWidget {
   final String? text;
+
 
   const EleButtHp({super.key, required this.text});
 
@@ -10,12 +12,13 @@ class EleButtHp extends StatefulWidget {
 }
 
 class _EleButtHpState extends State<EleButtHp> {
+
   @override
   Widget build(BuildContext context) {
     return Row(children: [
       ElevatedButton(onPressed: (){
         setState(() {
-          
+          count ++;
         });
       }, child: Text("${widget.text}", style: TextStyle(color: Colors.black),), style: 
       ElevatedButton.styleFrom(
