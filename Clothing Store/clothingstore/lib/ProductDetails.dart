@@ -18,9 +18,9 @@ class Productdetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 300,
+              height: 250,
               width: double.infinity,
-              child: Image.asset("assets/images/${data[index]["image"]}",fit: BoxFit.fill,),
+              child: Image.asset("assets/images/${data[index]["image"]}",fit: BoxFit.contain,),
             ),
             const SizedBox( height: 20,),
             Padding(
@@ -75,6 +75,40 @@ class Productdetails extends StatelessWidget {
           ],
         ),
       ),
+        persistentFooterButtons: [
+             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                        Text("Price",style: TextStyle(color: Colors.grey[600]),),
+                        Text("PKR ${data[index]["price"]}",style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold,color: Color(0xFF051054)),),
+                ],
+              
+              ),
+            ),
+            ElevatedButton(onPressed: (){}, 
+            
+            child: Row(
+            children: [
+                Icon(Icons.shopping_bag, color: Colors.white,),
+                SizedBox( width: 5,),
+                Text("Add to Cart", style: TextStyle(color: Colors.white),)
+],              ),style: 
+            ElevatedButton.styleFrom(
+            backgroundColor: Color(0xff051054),
+
+            ),
+            ),
+            
+            
+              ],
+            )
+
+        ],
 
     );
   }

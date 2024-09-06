@@ -13,6 +13,8 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   bool isChecked = false;
   bool _obscureText = true;
+  bool _obscureText2 = true;
+
 
   @override
 
@@ -52,19 +54,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),  SizedBox(height: 10,),
         
               TextField(
-                obscureText: true,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                prefixIcon: Icon(Icons.key),
-                suffixIcon: Icon(Icons.remove_red_eye_outlined),
-                hintText: "Password",
-                ),
-          
-              ), SizedBox(height: 10,),
-        
-              TextField(
                 obscureText: _obscureText,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
@@ -76,11 +65,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     _obscureText = !_obscureText;
                   });
                 }, icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility)),
+                hintText: "Password",
+                ),
+          
+              ),
+ SizedBox(height: 10,),
+        
+              TextField(
+                obscureText: _obscureText2,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                prefixIcon: Icon(Icons.key),
+                suffixIcon: IconButton(onPressed: (){
+                  setState(() {
+                    _obscureText2 = !_obscureText2;
+                  });
+                }, icon: Icon(_obscureText2 ? Icons.visibility_off : Icons.visibility)),
                 hintText: "Confirm Password",
                 ),
           
               ),
-  SizedBox(height: 10,),
+              SizedBox(height: 10,),
               Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start
