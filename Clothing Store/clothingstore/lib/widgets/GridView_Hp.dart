@@ -17,6 +17,7 @@ class GridViewHP extends StatelessWidget {
         color: Colors.grey.withOpacity(0.1),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           
           SizedBox(
@@ -26,7 +27,7 @@ class GridViewHP extends StatelessWidget {
           ),
           SizedBox(height: 10,),
           Text("$product_title", style: TextStyle(fontSize: 13),),
-          Text("PKR: $price", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 10),)
+          Text("$price", style: TextStyle(fontWeight: FontWeight.w800, fontSize: 10),)
         ],
       ),
     );

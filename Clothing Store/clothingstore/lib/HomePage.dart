@@ -4,6 +4,8 @@ import 'package:clothingstore/widgets/CirAv_Hp.dart';
 import 'package:clothingstore/widgets/GridView_Hp.dart';
 import 'package:clothingstore/widgets/eleBut_Hp.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
 
 class Homepage extends StatelessWidget {
 
@@ -12,6 +14,8 @@ class Homepage extends StatelessWidget {
   @override
   
   Widget build(BuildContext context) {
+      final currencyFormat = NumberFormat.currency(locale: 'en_PK', symbol: 'PKR ');
+
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -94,7 +98,7 @@ class Homepage extends StatelessWidget {
                 ),
                 itemCount: 10,
                 itemBuilder: (context, i) {
-                  return  GestureDetector(child: GridViewHP(images:data[i]["image"], product_title: data[i]["pdDetail"], price: data[i]["price"],),
+                  return  GestureDetector(child: GridViewHP(images:data[i]["image"], product_title: data[i]["pdDetail"], price: currencyFormat.format(data[i]["price"]),),
                   onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context){
                     return Productdetails(index: i);
                   })));
