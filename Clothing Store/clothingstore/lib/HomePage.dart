@@ -2,14 +2,23 @@ import 'package:clothingstore/ProductDetails.dart';
 import 'package:clothingstore/data/data.dart';
 import 'package:clothingstore/widgets/CirAv_Hp.dart';
 import 'package:clothingstore/widgets/GridView_Hp.dart';
+import 'package:clothingstore/widgets/bottom_navigation.dart';
 import 'package:clothingstore/widgets/eleBut_Hp.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
 
   const Homepage({super.key});
+
+  @override
+  State<Homepage> createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
+ 
+  
 
   @override
   
@@ -40,10 +49,12 @@ class Homepage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 20),
-                  const CircleAvatar(
+                   CircleAvatar(
                     radius: 20,
                     backgroundColor: Color(0xFF051054),
-                    child: Icon(Icons.notifications, color: Colors.white),
+                    child: Badge.count(
+                      count: 10,
+                      child: Icon(Icons.notifications, color: Colors.white)),
                   ),
                 ],
               ),
@@ -108,6 +119,7 @@ class Homepage extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar: BottomNav(bottomIndex: 0,)
     );
   }
 }

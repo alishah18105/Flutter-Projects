@@ -1,14 +1,14 @@
 import 'package:clothingstore/data/data.dart';
 import 'package:clothingstore/utilis/app_colors.dart';
 import 'package:clothingstore/widgets/TextTheme.dart';
+import 'package:clothingstore/widgets/bottom_navigation.dart';
 import 'package:clothingstore/widgets/eleBut_Mc.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class MyCart extends StatefulWidget {
-  final int index;
 
-  const MyCart({super.key, required this.index});
+  const MyCart({super.key});
 
   @override
   State<MyCart> createState() => _MyCartState();
@@ -38,7 +38,8 @@ class _MyCartState extends State<MyCart> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My Cart"),
+        automaticallyImplyLeading: false,
+        title: Center(child: Text("My Cart",style: TextStyle(color: AppColors.darkBlue),)),
       ),
       body: ListView.builder(
         itemCount: listTile_data.length,
@@ -173,7 +174,7 @@ class _MyCartState extends State<MyCart> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Size: XL", // You may want to adjust this to be dynamic based on user selection
+                          "Size: XL", 
                           style: TextStyle(color: AppColors.grey, fontSize: 10),
                         ),
                         Text(
@@ -214,6 +215,7 @@ class _MyCartState extends State<MyCart> {
           );
         },
       ),
+      bottomNavigationBar: BottomNav(bottomIndex: 1,),
     );
   }
 }

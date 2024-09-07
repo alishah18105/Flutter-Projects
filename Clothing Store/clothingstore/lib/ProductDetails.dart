@@ -1,4 +1,3 @@
-import 'package:clothingstore/MyCart.dart';
 import 'package:clothingstore/data/data.dart';
 import 'package:clothingstore/widgets/CirAv_Pd.dart';
 import 'package:clothingstore/widgets/eleBut_Pd.dart';
@@ -104,7 +103,6 @@ class Productdetails extends StatelessWidget {
                 } else {
                   listTile_data[existingItemIndex]["count"]++;
                 }
-                Navigator.push(context, MaterialPageRoute(builder: (ctx) => MyCart(index: existingItemIndex)));
               },
               child: Row(
                 children: [
