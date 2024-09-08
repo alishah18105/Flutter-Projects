@@ -1,23 +1,27 @@
 import 'package:clothingstore/ProductDetails.dart';
 import 'package:clothingstore/data/data.dart';
+import 'package:clothingstore/utilis/app_colors.dart';
 import 'package:clothingstore/widgets/CirAv_Hp.dart';
 import 'package:clothingstore/widgets/GridView_Hp.dart';
 import 'package:clothingstore/widgets/bottom_navigation.dart';
 import 'package:clothingstore/widgets/eleBut_Hp.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 
 class Homepage extends StatefulWidget {
 
-  const Homepage({super.key});
+
+  Homepage({super.key});
 
   @override
   State<Homepage> createState() => _HomepageState();
 }
 
 class _HomepageState extends State<Homepage> {
- 
+ final _controller = PageController();
+
   
 
   @override
@@ -63,21 +67,50 @@ class _HomepageState extends State<Homepage> {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    color: const Color(0xFF2b47f9),
+                    
+                  ),
+                  child: PageView
+                  (
+                    controller: _controller,
+                    children: [
+                      
+                      Image.asset("assets/images/banner1.jpg",fit: BoxFit.cover,),
+                      Image.asset("assets/images/banner2.JPG",fit: BoxFit.cover,),
+                      Image.asset("assets/images/banner4.JPG", fit: BoxFit.cover,),
+                      Image.asset("assets/images/banner3.jpg", fit: BoxFit.cover,),
+
+                    ],
+
                   ),
                   height: 130,
-                  width: 300,
+                  width: 350,
+              
                 ),
               ),
+              SizedBox(height: 10,),
+              Center(
+                child: SmoothPageIndicator(controller: _controller, 
+                count: 4,
+                effect: SwapEffect(
+                  activeDotColor: AppColors.darkBlue,
+                  offset: 16,
+                  dotColor: Colors.grey,
+                
+                
+                ),
+                
+                ),
+              ),
+              
               const SizedBox(height: 20),
               const Text(
                 "Category",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: const [
+                children:  [
                   CaHp(image: "tshirt.png"),
                   CaHp(image: "trousers.png"),
                   CaHp(image: "dress.png"),
@@ -85,10 +118,10 @@ class _HomepageState extends State<Homepage> {
                 ],
               ),
               const SizedBox(height: 20),
-              SingleChildScrollView(
+              const SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: const [
+                  children:  [
                     EleButtHp(text: "All"),
                     EleButtHp(text: "Popular"),
                     EleButtHp(text: "Newest"),
@@ -100,7 +133,7 @@ class _HomepageState extends State<Homepage> {
               const SizedBox(height: 10),
               GridView.builder(
                 physics: const NeverScrollableScrollPhysics(), // Disable GridView scroll
-                shrinkWrap: true, // Let GridView take up as much space as needed
+                shrinkWrap: true,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   childAspectRatio: (100 / 140),
@@ -119,7 +152,7 @@ class _HomepageState extends State<Homepage> {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNav(bottomIndex: 0,)
+      bottomNavigationBar: const BottomNav(bottomIndex: 0,)
     );
   }
 }
