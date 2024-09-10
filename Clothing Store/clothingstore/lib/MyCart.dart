@@ -4,6 +4,7 @@ import 'package:clothingstore/widgets/TextTheme.dart';
 import 'package:clothingstore/widgets/bottom_navigation.dart';
 import 'package:clothingstore/widgets/eleBut_Mc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 
 class MyCart extends StatefulWidget {
@@ -28,6 +29,11 @@ class _MyCartState extends State<MyCart> {
     if (listTile_data[index]["count"] > 1) {
       setState(() {
         listTile_data[index]["count"]--;
+      });
+    }
+    else{
+      setState(() {
+        listTile_data.removeAt(index);
       });
     }
   }
@@ -154,58 +160,73 @@ class _MyCartState extends State<MyCart> {
               ),
               child: Column(
                 children: [
-                  ListTile(
-                    leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: SizedBox(
-                        height: 100,
-                        width: 60,
-                        child: Image.asset(
-                          "assets/images/${item["image"]}",
-                          fit: BoxFit.fill,
+                  Slidable(
+                    endActionPane: ActionPane(motion: const ScrollMotion(), 
+                    children: [
+                    SlidableAction(onPressed: (context){
+                      setState(() {
+                        listTile_data.removeAt(index);
+                      }
+                      );  
+                    },
+                    backgroundColor: AppColors.darkBlue,
+                    foregroundColor: AppColors.white,
+                    icon: Icons.delete,
+                    )
+                    ]),
+                    child: ListTile(
+                      leading: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: SizedBox(
+                          height: 100,
+                          width: 60,
+                          child: Image.asset(
+                            "assets/images/${item["image"]}",
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
-                    ),
-                    title: Text(
-                      "${item["pdDetail"]}",
-                      style: TextStyle(color: AppColors.darkBlue),
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Size: XL", 
-                          style: TextStyle(color: AppColors.grey, fontSize: 10),
-                        ),
-                        Text(
-                          currencyFormat.format(itemPrice),
-                          style: TextStyle(
-                            color: AppColors.darkBlue,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
-                    ),
-                    trailing: SizedBox(
-                      width: 120,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      title: Text(
+                        "${item["pdDetail"]}",
+                        style: TextStyle(color: AppColors.darkBlue),
+                      ),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          EleBut_Mc(
-                            text: "-",
-                            tcolor: AppColors.black,
-                            bcolor: AppColors.lightgrey,
-                            onPressed: () => _decreaseCount(index),
+                          Text(
+                            "Size: XL", 
+                            style: TextStyle(color: AppColors.grey, fontSize: 10),
                           ),
-                          Text("${item["count"]}"),
-                          EleBut_Mc(
-                            text: "+",
-                            tcolor: AppColors.white,
-                            bcolor: AppColors.darkBlue,
-                            onPressed: () => _increaseCount(index),
+                          Text(
+                            currencyFormat.format(itemPrice),
+                            style: TextStyle(
+                              color: AppColors.darkBlue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 12,
+                            ),
                           ),
                         ],
+                      ),
+                      trailing: SizedBox(
+                        width: 120,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            EleBut_Mc(
+                              text: "-",
+                              tcolor: AppColors.black,
+                              bcolor: AppColors.lightgrey,
+                              onPressed: () => _decreaseCount(index),
+                            ),
+                            Text("${item["count"]}"),
+                            EleBut_Mc(
+                              text: "+",
+                              tcolor: AppColors.white,
+                              bcolor: AppColors.darkBlue,
+                              onPressed: () => _increaseCount(index),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

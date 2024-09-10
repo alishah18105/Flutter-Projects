@@ -1,4 +1,4 @@
-import 'package:clothingstore/HomePage.dart';
+//import 'package:clothingstore/HomePage.dart';
 import 'package:clothingstore/loginScreen.dart';
 import 'package:clothingstore/utilis/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -107,7 +107,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
              const  SizedBox(height: 10,),
               Center(
                 child: ElevatedButton(onPressed: (){
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Homepage() ),);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: AppColors.darkBlue,
+                      content: Text("Sign up Successfully", style: TextStyle(color: AppColors.white),),
+                      action: SnackBarAction(label: "undo",textColor:AppColors.white, onPressed: (){}), 
+                    )
+                  );
+                 // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Homepage() ),);
                 }, child: Text("Sign Up",style: TextStyle(color: Colors.white,fontSize: 15),), style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 80, vertical:11),
                   backgroundColor: AppColors.darkBlue,

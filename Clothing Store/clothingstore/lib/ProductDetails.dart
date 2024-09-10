@@ -1,4 +1,5 @@
 import 'package:clothingstore/data/data.dart';
+import 'package:clothingstore/utilis/app_colors.dart';
 import 'package:clothingstore/widgets/CirAv_Pd.dart';
 import 'package:clothingstore/widgets/eleBut_Pd.dart';
 import 'package:flutter/material.dart';
@@ -104,6 +105,13 @@ class Productdetails extends StatelessWidget {
                 } else {
                   listTile_data[existingItemIndex]["count"]++;
                 }
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: AppColors.darkBlue,
+                      content: Text("Item added to cart successfully", style: TextStyle(color: AppColors.white),),
+                      action: SnackBarAction(label: "undo", onPressed: (){}), 
+                    )
+                  );
               },
               child: Row(
                 children: [
