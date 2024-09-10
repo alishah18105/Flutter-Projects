@@ -7,7 +7,8 @@ import 'package:intl/intl.dart';
 
 class Productdetails extends StatelessWidget {
   final int index;
-  const Productdetails({super.key, required this.index});
+  final List<Map<String, dynamic>> selectedList;
+  const Productdetails({super.key, required this.index, required this.selectedList});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class Productdetails extends StatelessWidget {
             Container(
               height: 250,
               width: double.infinity,
-              child: Image.asset("assets/images/${data[index]["image"]}", fit: BoxFit.contain),
+              child: Image.asset("assets/images/${selectedList[index]["image"]}", fit: BoxFit.contain),
             ),
             const SizedBox(height: 20),
             Padding(
@@ -35,7 +36,7 @@ class Productdetails extends StatelessWidget {
                   Text("Male's Style", style: TextStyle(color: Colors.grey[600])),
                   const SizedBox(height: 10),
                   Text(
-                    "${data[index]["pdDetail"]}",
+                    "${selectedList[index]["pdDetail"]}",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF051054)),
                   ),
                   const SizedBox(height: 20),
@@ -84,7 +85,7 @@ class Productdetails extends StatelessWidget {
                 children: [
                   Text("Price", style: TextStyle(color: Colors.grey[600])),
                   Text(
-                    "${currencyFormat.format(data[index]["price"])}",
+                    "${currencyFormat.format(selectedList[index]["price"])}",
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Color(0xFF051054)),
                   ),
                 ],
@@ -92,12 +93,12 @@ class Productdetails extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                final existingItemIndex = listTile_data.indexWhere((item) => item["image"] == data[index]["image"]);
+                final existingItemIndex = listTile_data.indexWhere((item) => item["image"] == selectedList[index]["image"]);
                 if (existingItemIndex == -1) {
                   listTile_data.add({
-                    "image": data[index]["image"],
-                    "pdDetail": data[index]["pdDetail"],
-                    "price": data[index]["price"],
+                    "image": selectedList[index]["image"],
+                    "pdDetail": selectedList[index]["pdDetail"],
+                    "price": selectedList[index]["price"],
                     "count": 1,
                   });
                 } else {

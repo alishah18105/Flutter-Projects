@@ -9,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+      final currencyFormat = NumberFormat.currency(locale: 'en_PK', symbol: 'PKR ');
+        int isSelected = 0;
+
 
 class Homepage extends StatefulWidget {
 
@@ -22,12 +25,25 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
  final _controller = PageController();
 
-  
+ void _updateCategory(int index){
+setState(() {
+  isSelected = index;
+});
+ }
 
+Widget _buildSelectedProductGrid() {
+    switch (isSelected) {
+      case 3:
+        return _buildMenProduct();
+      case 4:
+        return _buildWomenProduct();
+      default:
+        return _buildAllProduct();
+    }
+  }  
   @override
   
   Widget build(BuildContext context) {
-      final currencyFormat = NumberFormat.currency(locale: 'en_PK', symbol: 'PKR ');
 
     return Scaffold(
       appBar: AppBar(),
@@ -118,36 +134,22 @@ class _HomepageState extends State<Homepage> {
                 ],
               ),
               const SizedBox(height: 20),
-              const SingleChildScrollView(
+               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children:  [
-                    EleButtHp(text: "All"),
-                    EleButtHp(text: "Popular"),
-                    EleButtHp(text: "Newest"),
-                    EleButtHp(text: "Men"),
-                    EleButtHp(text: "Women"),
+                    EleButtHp(text: "All",index: 0,onPressed: _updateCategory,),
+                    EleButtHp(text: "Popular",index: 1,onPressed: _updateCategory),
+                    EleButtHp(text: "Newest", index: 2,onPressed: _updateCategory),
+                    EleButtHp(text: "Men", index: 3,onPressed: _updateCategory),
+                    EleButtHp(text: "Women", index: 4,onPressed: _updateCategory),
                   ],
                 ),
               ),
+
+
               const SizedBox(height: 10),
-              GridView.builder(
-                physics: const NeverScrollableScrollPhysics(), // Disable GridView scroll
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: (100 / 140),
-                  crossAxisSpacing: 30,
-                  mainAxisSpacing: 10,
-                ),
-                itemCount: 10,
-                itemBuilder: (context, i) {
-                  return  GestureDetector(child: GridViewHP(images:data[i]["image"], product_title: data[i]["pdDetail"], price: currencyFormat.format(data[i]["price"]),),
-                  onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context){
-                    return Productdetails(index: i);
-                  })));
-                },
-              ),
+              _buildSelectedProductGrid(),
             ],
           ),
         ),
@@ -155,4 +157,97 @@ class _HomepageState extends State<Homepage> {
       bottomNavigationBar: const BottomNav(bottomIndex: 0,)
     );
   }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+_buildAllProduct() {
+  return GridView.builder(
+    physics: const NeverScrollableScrollPhysics(),
+    shrinkWrap: true,
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      childAspectRatio: (100 / 140),
+      crossAxisSpacing: 30,
+      mainAxisSpacing: 10,
+    ),
+    itemCount: data.length,
+    itemBuilder: (context, i) {
+      return GestureDetector(
+        child: GridViewHP(
+          images: data[i]["image"],
+          product_title: data[i]["pdDetail"],
+          price: currencyFormat.format(data[i]["price"]),
+        ),
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Productdetails(index: i, selectedList: data,)),
+        ),
+      );
+    },
+  );
+}
+
+_buildMenProduct() {
+  return GridView.builder(
+    physics: const NeverScrollableScrollPhysics(),
+    shrinkWrap: true,
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      childAspectRatio: (100 / 140),
+      crossAxisSpacing: 30,
+      mainAxisSpacing: 10,
+    ),
+    itemCount: men.length,
+    itemBuilder: (context, i) {
+      return GestureDetector(
+        child: GridViewHP(
+          images: men[i]["image"],
+          product_title: men[i]["pdDetail"],
+          price: currencyFormat.format(men[i]["price"]),
+        ),
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Productdetails(index: i, selectedList: men,)),
+        ),
+      );
+    },
+  );
+}
+
+_buildWomenProduct() {
+  return GridView.builder(
+    physics: const NeverScrollableScrollPhysics(),
+    shrinkWrap: true,
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2,
+      childAspectRatio: (100 / 140),
+      crossAxisSpacing: 30,
+      mainAxisSpacing: 10,
+    ),
+    itemCount: women.length,
+    itemBuilder: (context, i) {
+      return GestureDetector(
+        child: GridViewHP(
+          images: women[i]["image"],
+          product_title: women[i]["pdDetail"],
+          price: currencyFormat.format(women[i]["price"]),
+        ),
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Productdetails(index: i, selectedList: women)),
+        ),
+      );
+    },
+  );
 }

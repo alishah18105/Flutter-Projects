@@ -21,12 +21,11 @@ class _EleButtHpState extends State<ElebutPd> {
         });
       }, child: Text("${widget.text}", style: TextStyle(color:_isPressed? Colors.white: Colors.black, fontSize: 12),), style: 
       ElevatedButton.styleFrom(
-        //padding: EdgeInsets.symmetric(vertical: 3, horizontal: 20),
             backgroundColor: _isPressed? Color(0xFF051054) : Colors.transparent,
-            shadowColor: Colors.transparent, // Remove shadow
-            side: BorderSide(color:  Color(0xFF051054), width: 1), // Border color and width
+            shadowColor: Colors.transparent, 
+            side: const BorderSide(color:  Color(0xFF051054), width: 1), 
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8), // Rounded corners
+              borderRadius: BorderRadius.circular(8), 
             ),
             minimumSize: const Size(10, 30)
          )

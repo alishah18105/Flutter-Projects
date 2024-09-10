@@ -1,5 +1,6 @@
 import 'package:clothingstore/SignUpScreen.dart';
 import 'package:clothingstore/loginScreen.dart';
+import 'package:clothingstore/utilis/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class Welcomescreen extends StatelessWidget {
@@ -60,7 +61,7 @@ class Welcomescreen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 50,),
+              const SizedBox(height: 50,),
 
               RichText(text: const TextSpan(
                 style: TextStyle(
@@ -74,26 +75,26 @@ class Welcomescreen extends StatelessWidget {
                   TextSpan(text: "That"),
                 ]
               )),
-              Center(child: Text("Makes You Look Your Best",style: TextStyle(fontWeight: FontWeight.w800, fontSize: 25),)),
+              const Center(child: Text("Makes You Look Your Best",style: TextStyle(fontWeight: FontWeight.w800, fontSize: 25),)),
 
-              SizedBox(height: 30,),
+             const  SizedBox(height: 30,),
 
               ElevatedButton(onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> SignUpScreen() ),);
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const SignUpScreen() ),);
               }, child: Text("Let's Get Started",style: TextStyle(color: Colors.white,fontSize: 15),), style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 70, vertical:15),
-                backgroundColor: Color(0xFF051054),
+                padding: const EdgeInsets.symmetric(horizontal: 70, vertical:15),
+                backgroundColor: AppColors.darkBlue,
               ),),
 
-              SizedBox(height: 15,),
+             const  SizedBox(height: 15,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("Already have an account?", style: TextStyle(fontWeight: FontWeight.bold),),
-                  SizedBox(width: 5,),
+                  const Text("Already have an account?", style: TextStyle(fontWeight: FontWeight.bold),),
+                  const SizedBox(width: 5,),
                   TextButton(onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));                  }, 
-                    child: Text("Sign in"),
+                    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen()));                  }, 
+                    child: const Text("Sign in"),
                   ),
                 ],
               )
