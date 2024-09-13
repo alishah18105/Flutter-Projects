@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 class EleButtHp extends StatefulWidget {
   final String? text;
   final int? index;
+  
   final Function onPressed;
 
 
-   EleButtHp({super.key, required this.text, required this.index, required this.onPressed});
+   EleButtHp({super.key, required this.text, required this.index, required this.onPressed,});
 
   @override
   State<EleButtHp> createState() => _EleButtHpState();
@@ -27,9 +28,9 @@ class _EleButtHpState extends State<EleButtHp> {
       ElevatedButton.styleFrom(
             backgroundColor: isSelected == widget.index ? AppColors.darkBlue :Colors.transparent,
             shadowColor: Colors.transparent, 
-            side: BorderSide(color: Color(0xFF051054), width: 2), // Border color and width
+            side: BorderSide(color: Color(0xFF051054), width: 2), 
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(25), // Rounded corners
+              borderRadius: BorderRadius.circular(25), 
             ),
           ),
       ),

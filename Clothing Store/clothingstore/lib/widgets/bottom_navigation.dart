@@ -1,5 +1,6 @@
 import 'package:clothingstore/HomePage.dart';
 import 'package:clothingstore/MyCart.dart';
+import 'package:clothingstore/mywishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:clothingstore/utilis/app_colors.dart';
 
@@ -35,6 +36,10 @@ class _BottomNavState extends State<BottomNav> {
             Navigator.push(context, MaterialPageRoute(builder: (context)=> MyCart()));
 
     }
+
+    else if( index == 2){
+      Navigator.push(context, MaterialPageRoute(builder: (context)=> Wishlist()));
+    }
     
 
   }
@@ -63,6 +68,7 @@ class _BottomNavState extends State<BottomNav> {
       child: ClipRRect(
         borderRadius: BorderRadius.circular(30),
         child: BottomNavigationBar(
+          enableFeedback: false,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(Icons.home),
@@ -93,7 +99,7 @@ class _BottomNavState extends State<BottomNav> {
           backgroundColor: Colors.transparent,
           currentIndex: _selectedIndex,
           selectedItemColor: Colors.white,
-          unselectedItemColor: Colors.grey[800],
+          unselectedItemColor: Colors.grey[600],
           onTap: _onItemTapped,
           showSelectedLabels: false,  
           showUnselectedLabels: false,

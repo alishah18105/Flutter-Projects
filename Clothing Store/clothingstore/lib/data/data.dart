@@ -15,9 +15,9 @@ List<Map<String, dynamic>> data = [
     {"image": "m5.jpg", "pdDetail": "Milky White Kurta", "price": 9250.0, "count": 0},
       {"image": "m8.jpg", "pdDetail": "Light Olive Kurta", "price": 10550.0, "count": 0},
 
-  {"image": "w_jac.jpg", "pdDetail": "Jacquard Embroidery", "price": 7650.0, "count": 0,},
+  {"image": "w_jac.jpg", "pdDetail": "Jacq Embroidery", "price": 7650.0, "count": 0,},
   {"image": "w_emb.jpg", "pdDetail": "Embroidery Kurti", "price": 6120.0, "count": 0,},
-  {"image": "m_offwhite.jpg", "pdDetail": "Off White Linen Kurta", "price": 4550.0, "count": 0,},
+  {"image": "m_offwhite.jpg", "pdDetail": "Off White  Kurta", "price": 4550.0, "count": 0,},
   {"image": "w_basic_y.jpg", "pdDetail": "Multi Basic Kurti", "price": 4350.0, "count": 0,},
   {"image": "w_boxy_b.jpg", "pdDetail": "Boxy Basic Kurti", "price": 4550.0, "count": 0,},
 ];
@@ -31,7 +31,7 @@ List<Map<String, dynamic>> men = [
   {"image": "m5.jpg", "pdDetail": "Milky White Kurta", "price": 9250.0, "count": 0},
     {"image": "m_darkgreen.jpg", "pdDetail": "Dark Green Kurta", "price": 4450.0, "count": 0,},
   {"image": "m_black.jpg", "pdDetail": "Black Linen Kurta", "price": 5500.0, "count": 0,},
-    {"image": "m_offwhite.jpg", "pdDetail": "Off White Linen Kurta", "price": 4550.0, "count": 0,},
+    {"image": "m_offwhite.jpg", "pdDetail": "Off White Kurta", "price": 4550.0, "count": 0,},
 
  
 ];
@@ -45,7 +45,7 @@ List<Map<String, dynamic>> women = [
   {"image": "w_boxy.jpg", "pdDetail": "Boxy Linen Kurti", "price": 5750.0, "count": 0,},
   {"image": "wm4.jpg", "pdDetail": "Multi Lawn Fabric", "price": 12350.0, "count": 0},
   {"image": "wm3.jpg", "pdDetail": "Peach Dobby Kurti", "price": 6350.0, "count": 0},
-  {"image": "w_jac.jpg", "pdDetail": "Jacquard Embroidery", "price": 7650.0, "count": 0,},
+  {"image": "w_jac.jpg", "pdDetail": "Jacq Embroidery", "price": 7650.0, "count": 0,},
   {"image": "w_emb.jpg", "pdDetail": "Embroidery Kurti", "price": 6120.0, "count": 0,},
    {"image": "w_basic_y.jpg", "pdDetail": "Multi Basic Kurti", "price": 4350.0, "count": 0,},
   {"image": "w_boxy_b.jpg", "pdDetail": "Boxy Basic Kurti", "price": 4550.0, "count": 0,},
@@ -56,5 +56,8 @@ List<Map<String, dynamic>> women = [
 
 
 List listTile_data = [];
+List fav = [];
 
-  int count = 1;
+List<Map<String, String>> accountDetails = [];
+
+

@@ -1,3 +1,4 @@
+import 'package:clothingstore/checkout.dart';
 import 'package:clothingstore/data/data.dart';
 import 'package:clothingstore/utilis/app_colors.dart';
 import 'package:clothingstore/widgets/TextTheme.dart';
@@ -50,9 +51,8 @@ class _MyCartState extends State<MyCart> {
       body: ListView.builder(
         itemCount: listTile_data.length,
         itemBuilder: (BuildContext context, int index) {
-          final item = listTile_data[index];
-          final itemPrice = item["price"];
-          final itemCount = item["count"];
+          final itemPrice = listTile_data[index]["price"];
+          final itemCount = listTile_data[index]["count"];
           final subtotal = itemPrice * itemCount;
           final totalPrice = subtotal + discount + deliveryfee;
 
@@ -81,7 +81,8 @@ class _MyCartState extends State<MyCart> {
                                       contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(25),
-                                        borderSide: BorderSide(color: Color(0xff051054)),
+                                        borderSide: BorderSide(color: AppColors.darkBlue
+                                        ),
                                       ),
                                       hintText: "Promo Code",
                                     ),
@@ -129,11 +130,13 @@ class _MyCartState extends State<MyCart> {
                             ),
                             const SizedBox(height: 20),
                             ElevatedButton(
-                              onPressed: () {},
-                              child: Text("Proceed To Checkout", style: TextStyle(color: Colors.white, fontSize: 15)),
+                              onPressed: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> CheckOut()));
+                              },
+                              child: Text("Proceed To Checkout", style: TextStyle(color: AppColors.white, fontSize: 15)),
                               style: ElevatedButton.styleFrom(
                                 padding: EdgeInsets.symmetric(horizontal: 80, vertical: 11),
-                                backgroundColor: Color(0xFF051054),
+                                backgroundColor: AppColors.darkBlue,
                               ),
                             ),
                           ],
@@ -172,6 +175,7 @@ class _MyCartState extends State<MyCart> {
                     backgroundColor: AppColors.darkBlue,
                     foregroundColor: AppColors.white,
                     icon: Icons.delete,
+                    
                     )
                     ]),
                     child: ListTile(
@@ -181,20 +185,20 @@ class _MyCartState extends State<MyCart> {
                           height: 100,
                           width: 60,
                           child: Image.asset(
-                            "assets/images/${item["image"]}",
+                            "assets/images/${listTile_data[index]["image"]}",
                             fit: BoxFit.fill,
                           ),
                         ),
                       ),
                       title: Text(
-                        "${item["pdDetail"]}",
+                        "${listTile_data[index]["pdDetail"]}",
                         style: TextStyle(color: AppColors.darkBlue),
                       ),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Size: XL", 
+                            "${listTile_data[index]["size"]}", 
                             style: TextStyle(color: AppColors.grey, fontSize: 10),
                           ),
                           Text(
@@ -218,7 +222,7 @@ class _MyCartState extends State<MyCart> {
                               bcolor: AppColors.lightgrey,
                               onPressed: () => _decreaseCount(index),
                             ),
-                            Text("${item["count"]}"),
+                            Text("${listTile_data[index]["count"]}"),
                             EleBut_Mc(
                               text: "+",
                               tcolor: AppColors.white,
@@ -236,7 +240,7 @@ class _MyCartState extends State<MyCart> {
           );
         },
       ),
-      bottomNavigationBar: BottomNav(bottomIndex: 1,),
+      bottomNavigationBar:const BottomNav(bottomIndex: 1,),
     );
   }
 }

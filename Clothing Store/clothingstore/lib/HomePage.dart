@@ -8,14 +8,13 @@ import 'package:clothingstore/widgets/eleBut_Hp.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'dart:async'; // Import Timer class
 
-      final currencyFormat = NumberFormat.currency(locale: 'en_PK', symbol: 'PKR ');
-        int isSelected = 0;
 
+final currencyFormat = NumberFormat.currency(locale: 'en_PK', symbol: 'PKR ');
+int isSelected = 0;
 
 class Homepage extends StatefulWidget {
-
-
   Homepage({super.key});
 
   @override
@@ -23,28 +22,125 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
- final _controller = PageController();
+  List<Map<String, dynamic>> selectedList = [];
+  final PageController _controller = PageController();
+  Timer? _pageTimer;
 
- void _updateCategory(int index){
-setState(() {
-  isSelected = index;
-});
- }
+  void _updateCategory(int index) {
+    setState(() {
+      isSelected = index;
+    });
+  }
 
-Widget _buildSelectedProductGrid() {
+  Widget _buildAllProduct() {
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: (100 / 160),
+        crossAxisSpacing: 30,
+        mainAxisSpacing: 10,
+      ),
+      itemCount: selectedList.length,
+      itemBuilder: (context, i) {
+        bool isFavorite = fav.any((item) => item["image"] == selectedList[i]["image"]);
+
+        return GestureDetector(
+          child: Stack(
+            children: [
+              GridViewHP(
+                images: selectedList[i]["image"],
+                product_title: selectedList[i]["pdDetail"],
+                price: currencyFormat.format(selectedList[i]["price"]),
+              ),
+              Positioned(
+                top: 5,
+                right: 0,
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 15,
+                  child: GestureDetector(
+                    onTap: () {
+                      final existingItemIndex = fav.indexWhere((item) => item["image"] == selectedList[i]["image"]);
+
+                      setState(() {
+                        if (existingItemIndex == -1) {
+                          fav.add({
+                            "image": selectedList[i]["image"],
+                            "pdDetail": selectedList[i]["pdDetail"],
+                            "price": selectedList[i]["price"],
+                          });
+                        } else {
+                          fav.removeAt(existingItemIndex);
+                        }
+                      });
+                    },
+                    child: Icon(
+                      isFavorite ? Icons.favorite : Icons.favorite_border,
+                      color: Colors.red[800],
+                      size: 20,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Productdetails(index: i, selectedList: selectedList),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildSelectedProductGrid() {
     switch (isSelected) {
       case 3:
-        return _buildMenProduct();
+        selectedList = men;
+        return _buildAllProduct();
       case 4:
-        return _buildWomenProduct();
+        selectedList = women;
+        return _buildAllProduct();
       default:
+        selectedList = data;
         return _buildAllProduct();
     }
-  }  
-  @override
-  
-  Widget build(BuildContext context) {
+  }
 
+  @override
+  void initState() {
+    super.initState();
+    _startAutoSlide();
+  }
+
+  void _startAutoSlide() {
+    _pageTimer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      if (_controller.hasClients) {
+        int nextPage = (_controller.page?.toInt() ?? 0) + 1;
+        if (nextPage >= 4) {
+          nextPage = 0; 
+        }
+        _controller.animateToPage(
+          nextPage,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageTimer?.cancel(); 
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
       body: SingleChildScrollView(
@@ -61,20 +157,21 @@ Widget _buildSelectedProductGrid() {
                         contentPadding: const EdgeInsets.symmetric(vertical: 8),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25),
-                          borderSide: BorderSide(color: Color(0xff051054))
+                          borderSide:  BorderSide(color: AppColors.darkBlue),
                         ),
-                        prefixIcon: const Icon(Icons.search),
+                        prefixIcon: Icon(Icons.search, color: AppColors.darkBlue),
                         hintText: "Search",
                       ),
                     ),
                   ),
                   const SizedBox(width: 20),
-                   CircleAvatar(
+                  CircleAvatar(
                     radius: 20,
-                    backgroundColor: Color(0xFF051054),
+                    backgroundColor: const Color(0xFF051054),
                     child: Badge.count(
                       count: 10,
-                      child: Icon(Icons.notifications, color: Colors.white)),
+                      child: const Icon(Icons.notifications, color: Colors.white),
+                    ),
                   ),
                 ],
               ),
@@ -83,41 +180,32 @@ Widget _buildSelectedProductGrid() {
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5),
-                    
                   ),
-                  child: PageView
-                  (
-                    controller: _controller,
+                  child: PageView(
+                    controller:  _controller,
                     children: [
-                      
-                      Image.asset("assets/images/banner1.jpg",fit: BoxFit.cover,),
-                      Image.asset("assets/images/banner2.JPG",fit: BoxFit.cover,),
-                      Image.asset("assets/images/banner4.JPG", fit: BoxFit.cover,),
-                      Image.asset("assets/images/banner3.jpg", fit: BoxFit.cover,),
-
+                      Image.asset("assets/images/banner1.jpg", fit: BoxFit.cover),
+                      Image.asset("assets/images/banner2.JPG", fit: BoxFit.cover),
+                      Image.asset("assets/images/banner4.JPG", fit: BoxFit.cover),
+                      Image.asset("assets/images/banner3.jpg", fit: BoxFit.cover),
                     ],
-
                   ),
                   height: 130,
                   width: 350,
-              
                 ),
               ),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10),
               Center(
-                child: SmoothPageIndicator(controller: _controller, 
-                count: 4,
-                effect: SwapEffect(
-                  activeDotColor: AppColors.darkBlue,
-                  offset: 16,
-                  dotColor: Colors.grey,
-                
-                
-                ),
-                
+                child: SmoothPageIndicator(
+                  controller: _controller,
+                  count: 4,
+                  effect: SwapEffect(
+                    activeDotColor: AppColors.darkBlue,
+                    offset: 16,
+                    dotColor: Colors.grey,
+                  ),
                 ),
               ),
-              
               const SizedBox(height: 20),
               const Text(
                 "Category",
@@ -126,7 +214,7 @@ Widget _buildSelectedProductGrid() {
               const SizedBox(height: 20),
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children:  [
+                children: [
                   CaHp(image: "tshirt.png"),
                   CaHp(image: "trousers.png"),
                   CaHp(image: "dress.png"),
@@ -134,120 +222,25 @@ Widget _buildSelectedProductGrid() {
                 ],
               ),
               const SizedBox(height: 20),
-               SingleChildScrollView(
+              SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children:  [
-                    EleButtHp(text: "All",index: 0,onPressed: _updateCategory,),
-                    EleButtHp(text: "Popular",index: 1,onPressed: _updateCategory),
-                    EleButtHp(text: "Newest", index: 2,onPressed: _updateCategory),
-                    EleButtHp(text: "Men", index: 3,onPressed: _updateCategory),
-                    EleButtHp(text: "Women", index: 4,onPressed: _updateCategory),
+                  children: [
+                    EleButtHp(text: "All", index: 0, onPressed: _updateCategory),
+                    EleButtHp(text: "Popular", index: 1, onPressed: _updateCategory),
+                    EleButtHp(text: "Newest", index: 2, onPressed: _updateCategory),
+                    EleButtHp(text: "Men", index: 3, onPressed: _updateCategory),
+                    EleButtHp(text: "Women", index: 4, onPressed: _updateCategory),
                   ],
                 ),
               ),
-
-
               const SizedBox(height: 10),
               _buildSelectedProductGrid(),
             ],
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNav(bottomIndex: 0,)
+      bottomNavigationBar: const BottomNav(bottomIndex: 0),
     );
   }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-_buildAllProduct() {
-  return GridView.builder(
-    physics: const NeverScrollableScrollPhysics(),
-    shrinkWrap: true,
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-      childAspectRatio: (100 / 140),
-      crossAxisSpacing: 30,
-      mainAxisSpacing: 10,
-    ),
-    itemCount: data.length,
-    itemBuilder: (context, i) {
-      return GestureDetector(
-        child: GridViewHP(
-          images: data[i]["image"],
-          product_title: data[i]["pdDetail"],
-          price: currencyFormat.format(data[i]["price"]),
-        ),
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Productdetails(index: i, selectedList: data,)),
-        ),
-      );
-    },
-  );
-}
-
-_buildMenProduct() {
-  return GridView.builder(
-    physics: const NeverScrollableScrollPhysics(),
-    shrinkWrap: true,
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-      childAspectRatio: (100 / 140),
-      crossAxisSpacing: 30,
-      mainAxisSpacing: 10,
-    ),
-    itemCount: men.length,
-    itemBuilder: (context, i) {
-      return GestureDetector(
-        child: GridViewHP(
-          images: men[i]["image"],
-          product_title: men[i]["pdDetail"],
-          price: currencyFormat.format(men[i]["price"]),
-        ),
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Productdetails(index: i, selectedList: men,)),
-        ),
-      );
-    },
-  );
-}
-
-_buildWomenProduct() {
-  return GridView.builder(
-    physics: const NeverScrollableScrollPhysics(),
-    shrinkWrap: true,
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-      childAspectRatio: (100 / 140),
-      crossAxisSpacing: 30,
-      mainAxisSpacing: 10,
-    ),
-    itemCount: women.length,
-    itemBuilder: (context, i) {
-      return GestureDetector(
-        child: GridViewHP(
-          images: women[i]["image"],
-          product_title: women[i]["pdDetail"],
-          price: currencyFormat.format(women[i]["price"]),
-        ),
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => Productdetails(index: i, selectedList: women)),
-        ),
-      );
-    },
-  );
 }

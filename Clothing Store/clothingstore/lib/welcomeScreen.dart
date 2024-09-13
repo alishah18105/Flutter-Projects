@@ -9,8 +9,7 @@ class Welcomescreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      //appBar: AppBar(backgroundColor: Colors.white,),
+      backgroundColor: AppColors.white,
       body: SafeArea(
         child: Container(
           margin: const EdgeInsets.only(top: 40, bottom: 20, left: 10, right: 10),
@@ -63,7 +62,7 @@ class Welcomescreen extends StatelessWidget {
               ),
               const SizedBox(height: 50,),
 
-              RichText(text: const TextSpan(
+              RichText(text:  TextSpan(
                 style: TextStyle(
                 fontWeight: FontWeight.w800,
                 fontSize: 25,
@@ -71,7 +70,7 @@ class Welcomescreen extends StatelessWidget {
                 ),
                 children: [
                   TextSpan(text: "The "),
-                  TextSpan(text: "Fashion App ", style: TextStyle(color: Color(0xFF051054), )),
+                  TextSpan(text: "Fashion App ", style: TextStyle(color: AppColors.darkBlue, )),
                   TextSpan(text: "That"),
                 ]
               )),
@@ -81,7 +80,7 @@ class Welcomescreen extends StatelessWidget {
 
               ElevatedButton(onPressed: (){
                 Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const SignUpScreen() ),);
-              }, child: Text("Let's Get Started",style: TextStyle(color: Colors.white,fontSize: 15),), style: ElevatedButton.styleFrom(
+              }, child: Text("Let's Get Started",style: TextStyle(color: AppColors.white,fontSize: 15),), style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 70, vertical:15),
                 backgroundColor: AppColors.darkBlue,
               ),),

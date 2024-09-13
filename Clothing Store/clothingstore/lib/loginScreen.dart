@@ -14,6 +14,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool isChecked = false;
   bool _obscureText = true;
+  String? text = "";
+   TextEditingController mail = TextEditingController();
+    TextEditingController pass = TextEditingController();
+
+
   @override
 
   Widget build(BuildContext context) {
@@ -32,11 +37,13 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 50),
           
               TextField(
+                controller: mail,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                prefixIcon: const  Icon(Icons.email_outlined),
+                prefixIcon:   Icon(Icons.email_outlined,color: AppColors.darkBlue,),
+                
                 hintText: "Email",
                 ),
           
@@ -44,21 +51,26 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 10,),
               
               TextField(
+                controller: pass,
                 obscureText: _obscureText,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                prefixIcon: const Icon(Icons.key),
+                prefixIcon:  Icon(Icons.key,color: AppColors.darkBlue),
                 suffixIcon: IconButton(onPressed: (){
                 setState(() {
                   _obscureText = !_obscureText;
                 });
-                }, icon: Icon(_obscureText ? Icons.visibility_off: Icons.visibility)),
+                }, icon: Icon(_obscureText ? Icons.visibility_off: Icons.visibility,color: AppColors.darkBlue)),
                 hintText: "Password",
                 ),
                   
-              ), const SizedBox(height: 5,),
+              ), 
+              const SizedBox(height: 5,),
+              Center(child: Text("$text", style: const TextStyle(color: Colors.red),)),
+
+              const SizedBox(height: 5,),
                Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.start
@@ -78,8 +90,16 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(height: 20,),
               Center(
                 child: ElevatedButton(onPressed: (){
+                  setState(() {
+                    if(mail.text.isEmpty || pass.text.isEmpty){
+                      text = "Input field can't be empty";
+                    }
+                    else{ text = "";
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Homepage() ),);  
+                    }
+
+                  });
                   
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Homepage() ),);
                 }, child: Text("Sign In",style: TextStyle(color: AppColors.white,fontSize: 15),), style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 80, vertical:11),
                   backgroundColor: AppColors.darkBlue,

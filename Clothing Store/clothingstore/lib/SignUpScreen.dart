@@ -1,13 +1,17 @@
 //import 'package:clothingstore/HomePage.dart';
+import 'package:clothingstore/data/data.dart';
 import 'package:clothingstore/loginScreen.dart';
 import 'package:clothingstore/utilis/app_colors.dart';
+
 import 'package:flutter/material.dart';
+
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen
 ({super.key});
 
   @override
+  
   State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
@@ -16,8 +20,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool _obscureText = true;
   bool _obscureText2 = true;
 
+ TextEditingController mail = TextEditingController();
+  TextEditingController name = TextEditingController();
+  TextEditingController pass = TextEditingController();
+   TextEditingController cpass = TextEditingController();
+  String? text = "" ;
 
   @override
+ 
+
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,44 +39,48 @@ class _SignUpScreenState extends State<SignUpScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Sign Up",style: TextStyle(color: Color(0xFF051054), fontSize: 50, fontWeight: FontWeight.w800),),
-              const Text("Hello! Let's join with us", style: TextStyle(color: Color(0xFF051054),fontWeight: FontWeight.w600),),
+               Text("Sign Up",style: TextStyle(color: AppColors.darkBlue , fontSize: 50, fontWeight: FontWeight.w800),),
+                Text("Hello! Let's join with us", style: TextStyle(color: AppColors.darkBlue ,fontWeight: FontWeight.w600),),
               const SizedBox(height: 40),
           
               TextField(
+                controller: mail,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                prefixIcon: const Icon(Icons.email_outlined),
+                prefixIcon:  Icon(Icons.email_outlined,color: AppColors.darkBlue),
                 hintText: "Email",
                 ),
           
               ),
              const  SizedBox(height: 10,),
+
               TextField(
+                  controller: name,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                prefixIcon: const  Icon(Icons.person_2_outlined),
+                prefixIcon:  Icon(Icons.person_2_outlined,color: AppColors.darkBlue),
                 hintText: "Full Name",
                 ),
           
               ), const  SizedBox(height: 10,),
         
               TextField(
+                  controller: pass,
                 obscureText: _obscureText,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                prefixIcon: const Icon(Icons.key),
+                prefixIcon: Icon(Icons.key,color: AppColors.darkBlue),
                 suffixIcon: IconButton(onPressed: (){
                   setState(() {
                     _obscureText = !_obscureText;
                   });
-                }, icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility)),
+                }, icon: Icon(_obscureText ? Icons.visibility_off : Icons.visibility,color: AppColors.darkBlue)),
                 hintText: "Password",
                 ),
           
@@ -73,21 +88,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
  const SizedBox(height: 10,),
         
               TextField(
+                controller: cpass,
                 obscureText: _obscureText2,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
-                prefixIcon: const Icon(Icons.key),
+                prefixIcon:  Icon(Icons.key,color:AppColors.darkBlue,),
                 suffixIcon: IconButton(onPressed: (){
                   setState(() {
                     _obscureText2 = !_obscureText2;
                   });
-                }, icon: Icon(_obscureText2 ? Icons.visibility_off : Icons.visibility)),
+                }, icon: Icon(_obscureText2 ? Icons.visibility_off : Icons.visibility,color: AppColors.darkBlue)),
                 hintText: "Confirm Password",
                 ),
           
               ),
+
+            Center(child: Text("$text", style: TextStyle(color: Colors.red),)),
+
               const SizedBox(height: 10,),
               Row(
                 mainAxisSize: MainAxisSize.min,
@@ -107,6 +126,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
              const  SizedBox(height: 10,),
               Center(
                 child: ElevatedButton(onPressed: (){
+                
+                setState(() {
+                  if(name.text.isEmpty  ||  mail.text.isEmpty || pass.text.isEmpty || cpass.text.isEmpty){
+                 
+                  text = "Input field can't be empty";
+                 
+                }
+
+                 else if(pass.text != cpass.text){
+                    text = "Password doesn't match";
+                }
+
+                else{
+                  
+                  accountDetails.add({
+                    "name" : name.text,
+                    "email" : mail.text,
+
+
+                  });
+                                      text = "";
+                    
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       backgroundColor: AppColors.darkBlue,
@@ -114,7 +155,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       action: SnackBarAction(label: "undo",textColor:AppColors.white, onPressed: (){}), 
                     )
                   );
-                 // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> Homepage() ),);
+                }
+                });
+                
                 }, child: Text("Sign Up",style: TextStyle(color: Colors.white,fontSize: 15),), style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 80, vertical:11),
                   backgroundColor: AppColors.darkBlue,
