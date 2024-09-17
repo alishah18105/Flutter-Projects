@@ -1,6 +1,7 @@
 import 'package:clothingstore/HomePage.dart';
 import 'package:clothingstore/MyCart.dart';
 import 'package:clothingstore/mywishlist.dart';
+import 'package:clothingstore/profilescreen.dart';
 import 'package:flutter/material.dart';
 import 'package:clothingstore/utilis/app_colors.dart';
 
@@ -39,6 +40,11 @@ class _BottomNavState extends State<BottomNav> {
 
     else if( index == 2){
       Navigator.push(context, MaterialPageRoute(builder: (context)=> Wishlist()));
+    }
+
+    else if(index == 4){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>  Profilescreen()));
+
     }
     
 

@@ -53,6 +53,7 @@ class _HomepageState extends State<Homepage> {
                 images: selectedList[i]["image"],
                 product_title: selectedList[i]["pdDetail"],
                 price: currencyFormat.format(selectedList[i]["price"]),
+                 rating: selectedList[i]["rate"].toString(),
               ),
               Positioned(
                 top: 5,
@@ -78,7 +79,7 @@ class _HomepageState extends State<Homepage> {
                     },
                     child: Icon(
                       isFavorite ? Icons.favorite : Icons.favorite_border,
-                      color: Colors.red[800],
+                      color: AppColors.darkBlue,
                       size: 20,
                     ),
                   ),
@@ -142,101 +143,130 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      //appBar: AppBar(),
       body: SingleChildScrollView(
-        child: Container(
-          margin: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(vertical: 8),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25),
-                          borderSide:  BorderSide(color: AppColors.darkBlue),
-                        ),
-                        prefixIcon: Icon(Icons.search, color: AppColors.darkBlue),
-                        hintText: "Search",
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  CircleAvatar(
-                    radius: 20,
-                    backgroundColor: const Color(0xFF051054),
-                    child: Badge.count(
-                      count: 10,
-                      child: const Icon(Icons.notifications, color: Colors.white),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              Center(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                  child: PageView(
-                    controller:  _controller,
-                    children: [
-                      Image.asset("assets/images/banner1.jpg", fit: BoxFit.cover),
-                      Image.asset("assets/images/banner2.JPG", fit: BoxFit.cover),
-                      Image.asset("assets/images/banner4.JPG", fit: BoxFit.cover),
-                      Image.asset("assets/images/banner3.jpg", fit: BoxFit.cover),
-                    ],
-                  ),
-                  height: 130,
-                  width: 350,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Center(
-                child: SmoothPageIndicator(
-                  controller: _controller,
-                  count: 4,
-                  effect: SwapEffect(
-                    activeDotColor: AppColors.darkBlue,
-                    offset: 16,
-                    dotColor: Colors.grey,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                "Category",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 20),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CaHp(image: "tshirt.png"),
-                  CaHp(image: "trousers.png"),
-                  CaHp(image: "dress.png"),
-                  CaHp(image: "jacket.png"),
-                ],
-              ),
-              const SizedBox(height: 20),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
+        child: SafeArea(
+          child: Container(
+            margin: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    EleButtHp(text: "All", index: 0, onPressed: _updateCategory),
-                    EleButtHp(text: "Popular", index: 1, onPressed: _updateCategory),
-                    EleButtHp(text: "Newest", index: 2, onPressed: _updateCategory),
-                    EleButtHp(text: "Men", index: 3, onPressed: _updateCategory),
-                    EleButtHp(text: "Women", index: 4, onPressed: _updateCategory),
+                    Text("Location",style: TextStyle(color: Colors.grey[600], fontSize: 15),),
+                    SizedBox( height: 5),
+                    Container(
+                      child: Row(
+                        children: [
+                          Icon(Icons.location_on, color: AppColors.darkBlue),
+                          Text("Karachi", style: TextStyle(fontWeight: FontWeight.bold),),
+                          Text(","),
+                          Text("  Pakistan"),
+                          Icon(Icons.keyboard_arrow_down_outlined, size: 20,),
+                          
+                          SizedBox(width: 120,),
+                          Expanded(
+                            child: CircleAvatar(
+                            radius: 20,
+                            backgroundColor: const Color(0xFF051054),
+                            child: Badge.count(
+                            count: 10,
+                            child: const Icon(Icons.notifications, color: Colors.white)),
+                          ),
+                          ),
+                        ],
+                      ),
+                    )
                   ],
                 ),
-              ),
-              const SizedBox(height: 10),
-              _buildSelectedProductGrid(),
-            ],
+                SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        decoration: InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(vertical: 8),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(25),
+                            borderSide:  BorderSide(color: AppColors.darkBlue),
+                          ),
+                          prefixIcon: Icon(Icons.search, color: AppColors.darkBlue),
+                          hintText: "Search",
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 20),
+                    CircleAvatar(
+                      radius: 20,
+                      backgroundColor: const Color(0xFF051054),
+                      child: const Icon(Icons.filter_list, color: Colors.white),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: PageView(
+                      controller:  _controller,
+                      children: [
+                        Image.asset("assets/images/banner1.jpg", fit: BoxFit.cover),
+                        Image.asset("assets/images/banner2.JPG", fit: BoxFit.cover),
+                        Image.asset("assets/images/banner4.JPG", fit: BoxFit.cover),
+                        Image.asset("assets/images/banner3.jpg", fit: BoxFit.cover),
+                      ],
+                    ),
+                    height: 130,
+                    width: 350,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Center(
+                  child: SmoothPageIndicator(
+                    controller: _controller,
+                    count: 4,
+                    effect: SwapEffect(
+                      activeDotColor: AppColors.darkBlue,
+                      offset: 16,
+                      dotColor: Colors.grey,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  "Category",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 20),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    CaHp(image: "tshirt.png"),
+                    CaHp(image: "trousers.png"),
+                    CaHp(image: "dress.png"),
+                    CaHp(image: "jacket.png"),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: [
+                      EleButtHp(text: "All", index: 0, onPressed: _updateCategory),
+                      EleButtHp(text: "Popular", index: 1, onPressed: _updateCategory),
+                      EleButtHp(text: "Newest", index: 2, onPressed: _updateCategory),
+                      EleButtHp(text: "Men", index: 3, onPressed: _updateCategory),
+                      EleButtHp(text: "Women", index: 4, onPressed: _updateCategory),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                _buildSelectedProductGrid(),
+              ],
+            ),
           ),
         ),
       ),

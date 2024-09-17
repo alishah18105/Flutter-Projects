@@ -2,6 +2,7 @@ import 'package:clothingstore/HomePage.dart';
 import 'package:clothingstore/SignUpScreen.dart';
 import 'package:clothingstore/utilis/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen
@@ -117,7 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     CircleAvatar(
                       backgroundColor: Colors.transparent,
-                      child: Icon(Icons.g_mobiledata, size:40,),
+                      child: FaIcon(FontAwesomeIcons.google, size: 30,),
                     ),
                     CircleAvatar(
                       backgroundColor: Colors.transparent,

@@ -2,6 +2,8 @@
 import 'package:clothingstore/data/data.dart';
 import 'package:clothingstore/loginScreen.dart';
 import 'package:clothingstore/utilis/app_colors.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 
 import 'package:flutter/material.dart';
 
@@ -175,7 +177,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     CircleAvatar(
                       backgroundColor: Colors.transparent,
-                      child: Icon(Icons.g_mobiledata, size:40,),
+                      child: FaIcon(FontAwesomeIcons.google, size: 30,),
                     ),
                     CircleAvatar(
                       backgroundColor: Colors.transparent,

@@ -20,10 +20,15 @@ class _CheckOutState extends State<CheckOut> {
 @override
   void initState() {
     super.initState();
-
+if (accountDetails.isNotEmpty && accountDetails[0].containsKey("email") && accountDetails[0].containsKey("name")) {
     mailController.text = accountDetails[0]["email"] ?? "";
     nameController.text = accountDetails[0]["name"] ?? "";
+  } else {
+    mailController.text = "abc@gmail.com";
+    nameController.text = "User";
   }
+   
+    }
  
   @override
   Widget build(BuildContext context) {

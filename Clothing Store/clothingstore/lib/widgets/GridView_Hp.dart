@@ -5,12 +5,14 @@ class GridViewHP extends StatefulWidget {
   final String? images;
   final String? product_title;
   final String? price;
+  final String? rating;  
 
   const GridViewHP({
     super.key,
     required this.images,
     required this.product_title,
     required this.price,
+    required this.rating,
   });
 
   @override
@@ -62,13 +64,20 @@ class _GridViewHPState extends State<GridViewHP> {
             ),
           ),
           const SizedBox(height: 5),
-          Text(
-            "${widget.price}",
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 12, 
-              color: AppColors.darkBlue, 
-            ),
+          Row(
+            children: [
+              Text(
+                "${widget.price}",
+                style: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  fontSize: 11, 
+                  color: AppColors.darkBlue, 
+                ),
+              ),
+              SizedBox(width: 10,),
+              Icon(Icons.star,color: Colors.yellow, size: 15,),
+              Text("${widget.rating}".toString(), style: TextStyle(fontSize: 11),),  
+            ],
           ),
         ],
       ),
